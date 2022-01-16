@@ -1,4 +1,3 @@
-const { Socket } = require('dgram');
 const express = require('express');
 const http = require("http");
 const app = express();
@@ -15,6 +14,7 @@ io.on("connection", (socket)=>{
     console.log(`${counter} users connected`);
     socket.on("join session", (sessionId, username)=>{
         console.log(`user joined session ${sessionId}`);
+        socket.join(sessionId);
         socket.to(sessionId).emit("user joined", `${username} joined the session`);
     });
 
