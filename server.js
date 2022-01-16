@@ -14,11 +14,12 @@ io.on("connection", (socket)=>{
     console.log(`${counter} users connected`);
     socket.on("join session", (sessionId, username)=>{
         console.log(`user joined session ${sessionId}`);
-        socket.join(sessionId);
+        socket.join(sessionId); // add socket to session
         socket.to(sessionId).emit("user joined", `${username} joined the session`);
     });
 
     socket.on("sync signal", (sessionId, syncObject)=>{
+        // syncObject is a generic javascript object containing the sync signal
         console.log("signal received");
         socket.to(sessionId).emit("signal", syncObject);
     })
