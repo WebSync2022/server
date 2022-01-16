@@ -5,7 +5,9 @@ const app = express();
 app.use(cors());
 const server = http.createServer(app);
 const socket = require("socket.io");
-const io = socket(server);
+const io = socket(server, {cors: {
+    origin: '*',
+}});
 
 app.get('/', (req, res) => {
   res.send('Relay server for WebSync');
